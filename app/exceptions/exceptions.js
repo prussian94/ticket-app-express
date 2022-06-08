@@ -26,5 +26,20 @@ module.exports =  {
     code: 500,
     statusCode: 50000
   }),
+  failedEventCreate: new Exception({
+    message: 'Event create failed.',
+    code: 500,
+    statusCode: 50000
+  }),
+  failedEventList: new Exception({
+    message: 'List events failed.',
+    code: 500,
+    statusCode: 50000
+  }),
+  failedPriceUpdate: new Exception({
+    message: 'Price update failed.',
+    code: 500,
+    statusCode: 50000
+  }),
 }
 
