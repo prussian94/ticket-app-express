@@ -41,8 +41,8 @@ async function getTicketById(id) {
     return TicketModel.findOne({id: id});
 }
 
-async function getTicketByEventId(eventId) {
-    return TicketModel.findOne({eventId: eventId}).sort({seat: -1});
+async function getTicketsByEventId(eventId) {
+    return TicketModel.find({eventId: eventId}).sort({seat: -1});
 }
 
 module.exports = {
@@ -50,5 +50,5 @@ module.exports = {
     cancelTicket,
     getTicketsByOwnerId,
     getTicketById,
-    getTicketByEventId
+    getTicketsByEventId
 };

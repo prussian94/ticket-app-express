@@ -23,6 +23,17 @@ async function createEvent(req, res) {
     return await EventModel.create(eventObject);
 }
 
+async function cancelEvent(req, res) {
+    EventModel.updateOne({id: req.params.id},
+        {cancelled: true}, function (err, docs) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("Updated Docs : ", docs);
+            }
+        });
+}
+
 async function editPrice(req) {
     EventModel.updateOne({id: req.params.id},
         {unitPrice: Number(req.params.price)}, function (err, docs) {
@@ -80,5 +91,6 @@ module.exports = {
     editPrice,
     listEvents,
     removeSeatFromEvent,
-    returnSeatToEvent
+    returnSeatToEvent,
+    cancelEvent
 };

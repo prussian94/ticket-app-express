@@ -4,6 +4,7 @@ const EventService = require('../services/event-service');
 const Exceptions = require('../exceptions/exceptions');
 
 router.post('/', createEvent);
+router.post('/cancel/:id', cancelEvent);
 router.put('/:id/price/:price', editPrice);
 router.get('/list', listEvents);
 
@@ -16,6 +17,18 @@ async function createEvent (req, res) {
   } catch(err) {
     console.log(err)
     throw Exceptions.failedEventCreate
+  }
+}
+
+async function cancelEvent (req, res) {
+  try {
+    await EventService.cancelEvent(req, res)
+
+    res.status(201).send({"message": "Cancelled!"})
+
+  } catch(err) {
+    console.log(err)
+    throw Exceptions.failedEventCancel
   }
 }
 

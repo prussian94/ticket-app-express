@@ -38,6 +38,10 @@ const eventSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    cancelled: {
+        type: Boolean,
+        required: false,
+    },
     recordTime: {
         createdAt: {
             type: Number,

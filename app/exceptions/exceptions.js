@@ -41,6 +41,11 @@ module.exports =  {
     code: 500,
     statusCode: 50000
   }),
+  failedEventCancel: new Exception({
+    message: 'Event cancelling failed.',
+    code: 500,
+    statusCode: 50000
+  }),
   failedEventList: new Exception({
     message: 'List events failed.',
     code: 500,
