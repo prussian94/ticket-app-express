@@ -26,6 +26,11 @@ module.exports =  {
     code: 404,
     statusCode: 40004
   }),
+  ticketNotFoundException: new Exception({
+    message: 'Ticket not found.',
+    code: 404,
+    statusCode: 40004
+  }),
   failedRegisteration: new Exception({
     message: 'Registeration failed.',
     code: 500,
@@ -45,6 +50,26 @@ module.exports =  {
     message: 'Price update failed.',
     code: 500,
     statusCode: 50000
+  }),
+  failedTicketCancel: new Exception({
+    message: 'Ticket cancel failed.',
+    code: 500,
+    statusCode: 50000
+  }),
+  failedTicketCreate: new Exception({
+    message: 'Ticket create failed.',
+    code: 500,
+    statusCode: 50000
+  }),
+  seatNoLongerAvailableException: new Exception({
+    message: 'Seat is no longer available to buy.',
+    code: 409,
+    statusCode: 40009
+  }),
+  ticketAlreadyDeletedException: new Exception({
+    message: 'Ticket is already cancelled.',
+    code: 409,
+    statusCode: 40009
   }),
 }
 

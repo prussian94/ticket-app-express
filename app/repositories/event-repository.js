@@ -1,5 +1,6 @@
 const EventModel = require('../models/event');
 const mongoose = require('mongoose');
+const Exceptions = require('../exceptions/exceptions')
 
 async function createEvent(req, res) {
     const ObjectId = mongoose.Types.ObjectId();
@@ -44,14 +45,39 @@ const listEventFilters = (req) => {
     const nameCondition = Boolean(req.query.name)
 
     return {
-        ...((fromDateCondition && toDateCondition) && {date: {"$gte": req.query.from, "$lte": req.query.to}}),
+        ...((fromDateCondition && toDateCondition) && {
+            date: {
+                "$gte": Number(req.query.from),
+                "$lte": Number(req.query.to)
+            }
+        }),
         ...((placeCondition) && {place: {"$regex": req.query.place}}),
         ...((nameCondition) && {eventName: {"$regex": req.query.name}})
+    }
+}
+
+async function removeSeatFromEvent(eventId, seat) {
+    try{
+        EventModel.updateOne({id: eventId},
+            {$pull: {"place.availableSeats": {$in: [seat]}}}).exec();
+    } catch{
+        throw Exceptions.seatNoLongerAvailableException
+    }
+}
+
+async function returnSeatToEvent(eventId, seat) {
+    try{
+        return EventModel.updateOne({id: eventId},
+            {$push: {"place.availableSeats": seat}});
+    } catch{
+        throw Exceptions.seatNoLongerAvailableException
     }
 }
 
 module.exports = {
     createEvent,
     editPrice,
-    listEvents
+    listEvents,
+    removeSeatFromEvent,
+    returnSeatToEvent
 };

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const place = require('./place')
 
-const eventSchema = new mongoose.Schema({
+const ticketSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -10,29 +9,29 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    eventName: {
+    eventId: {
         type: String,
         required: true,
     },
-    date: {
+    buyTime: {
         type: Number,
         required: true,
     },
-    place: {
-        type: place,
+    ownerId: {
+        type: String,
         required: true,
     },
-    capacity: {
+    price: {
         type: Number,
         required: true,
     },
-    availableCapacity: {
-        type: Number,
+    seat: {
+        type: String,
         required: true,
     },
-    unitPrice: {
-        type: Number,
-        required: true,
+    deleted: {
+        type: Boolean,
+        required: false,
     },
     recordTime: {
         createdAt: {
@@ -46,4 +45,4 @@ const eventSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Event', eventSchema)
+module.exports = mongoose.model('Ticket', ticketSchema)

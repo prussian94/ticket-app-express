@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4091;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -39,7 +39,9 @@ app.listen(PORT, () => {
 const authController = require('./app/controllers/auth');
 const eventController = require('./app/controllers/event');
 const userController = require('./app/controllers/user');
+const ticketController = require('./app/controllers/ticket');
 
 app.use('/auth', authController);
 app.use('/event', eventController);
 app.use('/user', userController);
+app.use('/ticket', ticketController);
