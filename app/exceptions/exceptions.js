@@ -21,6 +21,11 @@ module.exports =  {
     code: 401,
     statusCode: 40002
   }),
+  userNotFoundException: new Exception({
+    message: 'User not found.',
+    code: 404,
+    statusCode: 40004
+  }),
   failedRegisteration: new Exception({
     message: 'Registeration failed.',
     code: 500,

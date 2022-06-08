@@ -38,7 +38,8 @@ app.listen(PORT, () => {
 
 const authController = require('./app/controllers/auth');
 const eventController = require('./app/controllers/event');
+const userController = require('./app/controllers/user');
 
 app.use('/auth', authController);
 app.use('/event', eventController);
-
+app.use('/user', userController);
