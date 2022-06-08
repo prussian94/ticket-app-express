@@ -23,18 +23,31 @@ async function createEvent(req, res) {
 
 async function editPrice(req) {
     EventModel.updateOne({id: req.params.id},
-        {unitPrice:Number(req.params.price)}, function (err, docs) {
-            if (err){
+        {unitPrice: Number(req.params.price)}, function (err, docs) {
+            if (err) {
                 console.log(err)
-            }
-            else{
+            } else {
                 console.log("Updated Docs : ", docs);
             }
         });
 }
 
 async function listEvents(req, res) {
-    return EventModel.find();
+    const filters = listEventFilters(req)
+    return EventModel.find(filters);
+}
+
+const listEventFilters = (req) => {
+    const fromDateCondition = Boolean(req.query.from)
+    const toDateCondition = Boolean(req.query.to)
+    const placeCondition = Boolean(req.query.place)
+    const nameCondition = Boolean(req.query.name)
+
+    return {
+        ...((fromDateCondition && toDateCondition) && {date: {"$gte": req.query.from, "$lte": req.query.to}}),
+        ...((placeCondition) && {place: {"$regex": req.query.place}}),
+        ...((nameCondition) && {eventName: {"$regex": req.query.name}})
+    }
 }
 
 module.exports = {
