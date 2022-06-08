@@ -13,6 +13,7 @@ async function createEvent(req, res) {
         capacity: req.body.capacity,
         availableCapacity: req.body.availableCapacity,
         unitPrice: req.body.unitPrice,
+        photoUrl: req.body.photoUrl,
         recordTime: {
             createdAt: Date.now(),
             updatedAt: Date.now()
@@ -35,7 +36,7 @@ async function editPrice(req) {
 
 async function listEvents(req, res) {
     const filters = listEventFilters(req)
-    return EventModel.find(filters);
+    return EventModel.find(filters).sort({"recordTime.createdAt": -1});
 }
 
 const listEventFilters = (req) => {

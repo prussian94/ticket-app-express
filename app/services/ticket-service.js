@@ -9,7 +9,6 @@ async function createTicket(req, res) {
 
 async function cancelTicket(req) {
     const ticket = await TicketRepository.getTicketById(req.params.id)
-    console.log(ticket.deleted)
     if(ticket.deleted){
         return Exception.ticketAlreadyDeletedException
 
@@ -24,8 +23,13 @@ async function getTicketsByOwnerId(req, res) {
     return await TicketRepository.getTicketsByOwnerId(req, res);
 }
 
+async function getTicketsByEventId(req, res) {
+    return await TicketRepository.getTicketByEventId(req.params.id);
+}
+
 module.exports = {
     createTicket,
     cancelTicket,
-    getTicketsByOwnerId
+    getTicketsByOwnerId,
+    getTicketsByEventId
 }

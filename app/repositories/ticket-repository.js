@@ -2,6 +2,7 @@ const TicketModel = require('../models/ticket');
 const mongoose = require('mongoose');
 
 async function createTicket(req, res) {
+    const isReservation = req.query.reservation
     const ObjectId = mongoose.Types.ObjectId();
     const TicketObject = {
         _id: ObjectId,
@@ -11,6 +12,7 @@ async function createTicket(req, res) {
         ownerId: req.body.ownerId,
         price: req.body.price,
         seat: req.body.seat,
+        ...((isReservation) && {isReservation: true}),
         recordTime: {
             createdAt: Date.now(),
             updatedAt: Date.now()
@@ -39,9 +41,14 @@ async function getTicketById(id) {
     return TicketModel.findOne({id: id});
 }
 
+async function getTicketByEventId(eventId) {
+    return TicketModel.findOne({eventId: eventId}).sort({seat: -1});
+}
+
 module.exports = {
     createTicket,
     cancelTicket,
     getTicketsByOwnerId,
-    getTicketById
+    getTicketById,
+    getTicketByEventId
 };

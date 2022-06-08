@@ -33,6 +33,10 @@ const ticketSchema = new mongoose.Schema({
         type: Boolean,
         required: false,
     },
+    isReservation: {
+        type: Boolean,
+        required: false,
+    },
     recordTime: {
         createdAt: {
             type: Number,
